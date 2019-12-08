@@ -41,10 +41,10 @@ def part2(pixels, width, height):
             newVisibleImage.append(newRow)
         visibleImage = newVisibleImage
     image = "".join(("".join("1" if j == 1 else " " for j in i)) + "\n" for i in visibleImage)
-    return image
+    return image[1:]
 
 
 with open("day8.txt", "r") as file:
     pixels = file.read()
     print("Part 1:", part1(pixels, 25, 6))
-    print("Part 2:\n", part2(pixels, 25, 6)[1:])
+    print("Part 2:\n", part2(pixels, 25, 6))
