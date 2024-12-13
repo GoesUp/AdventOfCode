@@ -27,8 +27,8 @@ def task1():
 
     def reach(locX, locY, presses, a, b, maxX, maxY, apr, bpr):
         # print(apr, bpr)
-        if apr == 80 and bpr == 40:
-            print("ayy")
+        # if apr == 80 and bpr == 40:
+        #     print("ayy")
 
         if (locX, locY) in mem:
             return mem[(locX, locY)]
@@ -51,11 +51,9 @@ def task1():
 
     s = 0
     for line in lines:
-        print(line)
         a,b,p = read(line)
         mem = {}
         tot = reach(0,0,0, a,b,p[0], p[1], 0,0)
-        print(tot)
         if tot < float("inf"):
             s+=tot
 
@@ -89,45 +87,31 @@ def task2():
         prize_loc = prize_loc.split(", Y=")
         prize_loc = tuple(map(int, prize_loc))
 
-        return firsttt, seconddd, prize_loc
+        return firstt, secondd, prize_loc
 
-    mem = {}
 
-    def reach(locX, locY, presses, a, b, maxX, maxY, apr, bpr):
-        # print(apr, bpr)
-        if apr == 80 and bpr == 40:
-            print("ayy")
+    def solve_for_a_b(x1, x2, y1, y2, c1, c2):
+        det = x1*y2 - x2*y1
+        if det == 0:
+            raise ValueError("No unique solution exists (determinant is zero).")
 
-        if (locX, locY) in mem:
-            return mem[(locX, locY)]
+        a = (y2*c1 - y1*c2) / det
+        b = (-x2*c1 + x1*c2) / det
+        return a, b
 
-        # if apr > 100 or bpr > 100:
-        #     return float("inf")
-
-        if locX > maxX or locY > maxY:
-            return float("inf")
-
-        if locX == maxX and locY == maxY:
-            return 0
-
-        loxa, loya = a(locX, locY)
-        loxb, loyb = b(locX, locY)
-        sola = 3 + reach(loxa, loya, presses + 1, a, b, maxX, maxY, apr + 1, bpr)
-        solb = 1 + reach(loxb, loyb, presses + 1, a, b, maxX, maxY, apr, bpr + 1)
-        mem[(locX, locY)] = min(sola, solb)
-        return min(sola, solb)
 
     s = 0
     for line in lines:
-        print(line)
         a, b, p = read(line)
-        mem = {}
-        tot = reach(0, 0, 0, a, b, p[0]+10000000000000, p[1]+10000000000000, 0, 0)
-        print(tot)
-        if tot < float("inf"):
-            s += tot
+        try:
+            sol1, sol2 = solve_for_a_b(a[0], a[1], b[0], b[1], p[0]+10000000000000, p[1]+10000000000000)
+            if int(sol1) == sol1 and int(sol2) == sol2:
+                tot = 3*sol1 + sol2
+                s += tot
+        except:
+            pass
 
-    print(s)
+    print(int(s))
 
     print(time.time() - ttt)
 
