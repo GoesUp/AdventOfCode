@@ -41,7 +41,7 @@ def task1():
     }
 
     current_direction = Direction.RIGHT
-    found_min = 65436
+    found_min = 654360
     loc_mins: dict[tuple[int, int], int] = {}
     on_best: set[tuple[int, int]] = set()
 
@@ -55,18 +55,11 @@ def task1():
                 if lm_val + 1000 < tot:
                     return float("inf")
                 elif lm_val > tot:
-                    print(f"[FM={found_min}] [LK={len(loc_mins.keys())}] [D={d}] I've been in {(x,y)=} before, but {tot=} is cheaper than {lm_val=}.")
+                    # print(f"[FM={found_min}] [LK={len(loc_mins.keys())}] [D={d}] I've been in {(x,y)=} before, but {tot=} is cheaper than {lm_val=}.")
                     loc_mins[(x,y)] = tot
         elif rot == 0:
-            print(f"[FM={found_min}] [LK={len(loc_mins.keys())}] [D={d}] It's the first time I'm in {(x,y)=}. I'm setting its val to {tot=}.")
+            # print(f"[FM={found_min}] [LK={len(loc_mins.keys())}] [D={d}] It's the first time I'm in {(x,y)=}. I'm setting its val to {tot=}.")
             loc_mins[(x,y)] = tot
-
-        # print(f"\r{d+1}             ", end="")
-        # print()
-        # print()
-        # for xxx in gr:
-        #     print("".join(xxx))
-        # time.sleep(0.01)
 
         if tot > found_min:
             return float("inf")
@@ -78,10 +71,11 @@ def task1():
             return float("inf")
 
         if gr[x][y] == "E":
-            print(f"{tot=} {d=}")
+            # print(f"{tot=} {d=}")
             if tot < found_min:
-                print(f"fmin: {found_min}->{tot}")
+                # print(f"fmin: {found_min}->{tot}")
                 found_min = tot
+                on_best = set()
 
             for path_part in total_path:
                 on_best.add(path_part)
@@ -106,15 +100,15 @@ def task1():
                 sx, sy = x,y
     assert sx is not None
     assert sy is not None
-    print(rec(sx, sy, grid, current_direction, 0, 0, 0, [(sx, sy)]))
-    print(len(on_best))
-    for g in range(len(grid)):
-        for gg in range(len(grid[g])):
-            if (g,gg) in on_best:
-                print("O", end="")
-            else:
-                print(grid[g][gg], end="")
-        print()
+    print("part 1:", rec(sx, sy, grid, current_direction, 0, 0, 0, [(sx, sy)]))
+    print("part 2:", len(on_best))
+    # for g in range(len(grid)):
+    #     for gg in range(len(grid[g])):
+    #         if (g,gg) in on_best:
+    #             print("O", end="")
+    #         else:
+    #             print(grid[g][gg], end="")
+    #     print()
     print(time.time() - ttt)
 
 

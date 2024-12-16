@@ -97,7 +97,7 @@ def task2():
                width=len(grid[0])*10,
                height=len(grid)*10, bg='gray')
     # tkinter._test()
-    for xxxx in range(1000000):
+    for xxxx in range(10000):
         # print(xxxx)
         canvas.pack()
         grid = [["." for _ in range(gridW)] for _ in range(gridH)]
@@ -118,6 +118,12 @@ def task2():
             else:
                 grid[new_posY][new_posX] += 1
 
+        oooh = 0
+        for i in range(1,len(grid)-1):
+            for j in range(1,len(grid[i])-1):
+                if grid[i][j] != "." and grid[i-1][j] != "." and grid[i+1][j] != "." and grid[i][j-1] != "." and grid[i][j+1] != ".":
+                    oooh += 1
+
         if 4000 < xxxx < 8000:
             middle_count = 0
             span = 15
@@ -132,9 +138,10 @@ def task2():
                         pass
                     else:
                         canvas.create_oval(g*10, gg*10, g*10, gg*10, fill="white", width=5, tags="oval")
-            if middle_count > 32:
+            if 7379 < xxxx < 7385:
                 master.update()
-                print(xxxx)
+                print(xxxx + 1)
+                time.sleep(5)
             canvas.delete("oval")
 
 
